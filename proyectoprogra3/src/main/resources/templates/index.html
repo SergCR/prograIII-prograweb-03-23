@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Proyecto Final - Programacion 3</title>
+    </head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+    </style>
+    <body>
+        <h1>Integrantes:</h1>
+        <p>Sergio Aguero Valle</p>
+        <p>Fabricio Herrera Montero</p>
+        <p>Jose David Marín Serrano</p>
+        <p>Sergio Herrera Guitierrez</p>
+
+        <br>
+        <br>
+        <h1>Login</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Metodo de Login</th>
+                    <th>URL</th>
+                    <th>Atributos</th>
+                    <th>Descripcion</th>
+                    <th>Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>POST</td>
+                    <td>http://sergcr.ddns.net:8080/login</td>
+                    <td>String email <br>String password</td>
+                    <td>Valida el usuario y retorna un objeto <b><i>Usuario</i></b> con un <i><b>atributo llamado "<u>token</u>" de tipo String que <u>es necesario para seguir usando el API. Expira el dia siguiente despues de generado</u></b></i></td>
+                    <td><b>Call:</b> http://sergcr.ddns.net:8080/login?email=usuario@email.com&password=passwordAqui<br><br>
+                        <b>Respuesta Exitosa:</b>
+                        <br>
+                            {<br>
+                            "usuarioID": 1,<br>
+                            "nombre": null,<br>
+                            "apellido": null,<br>
+                            "password": "****************************",<br>
+                            "email": "usuario@email.com",<br>
+                            "createdDate": null,<br>
+                            "modifiedDate": null,<br>
+                            "activeStatus": false,<br>
+                            "listaNotas": [],<br>
+                            "jwttoken": "3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b"<br>
+                            }<br><br>
+                        <b>Respuesta Fallida:</b><br>
+                        {<br>
+                            "usuarioID": 0,<br>
+                            "nombre": null,<br>
+                            "apellido": null,<br>
+                            "password": null,<br>
+                            "email": null,<br>
+                            "createdDate": null,<br>
+                            "modifiedDate": null,<br>
+                            "activeStatus": false,<br>
+                            "listaNotas": [],<br>
+                            "jwttoken": null<br>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h6>Ejemplo de token: <u>3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b</u> (Este token no expira)</h6>
+
+        <br>
+        <h1>Tabla Usuario</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Metodos de Usuarios</th>
+                    <th>URL</th>
+                    <th>Atributos</th>
+                    <th>Descripcion</th>
+                    <th>Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>GET</td>
+                    <td>http://sergcr.ddns.net:8080/getListaUsuarios</td>
+                    <td>String token</td>
+                    <td>Imprime la lista de usuarios</td>
+                    <td><b>Call:</b> http://sergcr.ddns.net:8080/getListaUsuarios?token=3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b<br><br>
+                        <b>Respuesta Exitosa:</b>
+                        <br>
+                        [<br>
+                        {<br>
+                            "usuarioID": 1,<br>
+                            "nombre": "Hector",<br>
+                            "apellido": "Hernandez",<br>
+                            "password": "passwordAqui",<br>
+                            "email": "hector.hernandez@email.com",<br>
+                            "createdDate": "2023-11-03",<br>
+                            "modifiedDate": "2023-11-03",<br>
+                            "activeStatus": true,<br>
+                            "listaNotas": [],<br>
+                            "jwttoken": null<br>
+                        },<br>
+                        {<br>
+                            "usuarioID": 3,<br>
+                            "nombre": "Javier",<br>
+                            "apellido": "Jimenez",<br>
+                            "password": "password",<br>
+                            "email": "javier.jimenez@email.com",<br>
+                            "createdDate": "2023-11-02",<br>
+                            "modifiedDate": "2023-11-02",<br>
+                            "activeStatus": true,<br>
+                            "listaNotas": [],<br>
+                            "jwttoken": null<br>
+                        }<br>
+                        ]<br><br>
+                        <b>Respuesta Fallida:</b><br>
+                        []<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>http://sergcr.ddns.net:8080/getUsuario</td>
+                    <td>String email <br> String token</td>
+                    <td>Trae un usuario en específico usando el email</td>
+                    <td><b>Call:</b> http://sergcr.ddns.net:8080/getUsuario?email=hector.hernandez@email.com&token=3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b<br><br>
+                        <b>Respuesta Exitosa:</b>
+                        <br>
+                        {<br>
+                            "usuarioID": 1,<br>
+                            "nombre": "Hector",<br>
+                            "apellido": "Hernandez",<br>
+                            "password": "passwordAqui",<br>
+                            "email": "hector.hernandez@email.com",<br>
+                            "createdDate": "2023-11-03",<br>
+                            "modifiedDate": "2023-11-03",<br>
+                            "activeStatus": true,<br>
+                            "listaNotas": [],<br>
+                            "jwttoken": null<br>
+                        }<br><br>
+                        <b>Respuesta Fallida:</b><br>
+                        {<br>
+                            "usuarioID": 0,<br>
+                            "nombre": null,<br>
+                            "apellido": null,<br>
+                            "password": null,<br>
+                            "email": null,<br>
+                            "createdDate": null,<br>
+                            "modifiedDate": null,<br>
+                            "activeStatus": false,<br>
+                            "listaNotas": [],<br>
+                            "jwttoken": null<br>
+                        }<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>POST</td>
+                    <td>http://sergcr.ddns.net:8080/addUsuario</td>
+                    <td>String nombre <br> String apellido <br> String email <br> String password</td>
+                    <td>Añade un usuario</td>
+                    <td><b>Call:</b> http://sergcr.ddns.net:8080/addUsuario?nombre=Jaimito&apellido=Rodriguez&email=jaimito.rodriguez@email.com&password=passwordSeguro<br><br>
+                        <b>Respuesta Exitosa:</b>
+                        <br>
+                        "Usuario creado con exito! : Nombre: Jaimito | Apellido: Rodriguez | Email: jaimito.rodriguez@email.com"<br><br>
+                        <b>Respuesta Fallida:</b><br>
+                        Error de servidor<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>UPDATE</td>
+                    <td>http://sergcr.ddns.net:8080/updateUsuario</td>
+                    <td>Integer userid <br> String nombre <br> String apellido <br> String email <br> String password<br> String token</td>
+                    <td>Actualiza la informacion del usuario</td>
+                    <td><b>Call:</b> http://sergcr.ddns.net:8080/updateUsuario?userid=11&nombre=Jose David&apellido=Marin&email=jose.marin@email.com&password=p34asdfasdfasdf&token=3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b<br><br>
+                        <b>Respuesta Exitosa:</b>
+                        <br>
+                        "Usuario actualizado con exito! : Nombre: Jose David | Apellido: Marin | Email: jose.marin@email.com"<br><br>
+                        <b>Respuesta Fallida:</b><br>
+                        Error de servidor<br>
+                        o<br>
+                        Actualizacion de usuario fallida! (Falta de token)
+                    </td>
+                </tr>
+                <tr>
+                    <td>DELETE</td>
+                    <td>http://sergcr.ddns.net:8080/deleteUsuario</td>
+                    <td>String email<br> String token</td>
+                    <td>Elimina el usuario</td>
+                    <td><b>Call:</b> http://sergcr.ddns.net:8080/deleteUsuario?email=jose.marin@email.com&token=3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b<br><br>
+                        <b>Respuesta Exitosa:</b>
+                        <br>
+                        "Usuario eliminado con exito! : Email: jose.marin@email.com"<br><br>
+                        <b>Respuesta Fallida:</b><br>
+                        Error de servidor<br>
+                        o<br>
+                        Error al eliminar usuario! (Falta de token)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <h1>Tabla Notas</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Metodos de Notas</th>
+                    <th>URL</th>
+                    <th>Atributos</th>
+                    <th>Descripcion</th>
+                    <th>Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>POST</td>
+                    <td>http://sergcr.ddns.net:8080/addNota</td>
+                    <td>Integer userID <br> String textoNota <br> String tituloNota<br> String token</td>
+                    <td>Agrega notas</td>
+                    <td><b>Call:</b> http://sergcr.ddns.net:8080/addNota?userID=8&textoNota=texto de prueba para la nota 11-17&tituloNota=titlo de prueba 11-17&token=3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b<br><br>
+                        <b>Respuesta Exitosa:</b>
+                        <br>
+                        "La nota fue agregada con exito"<br><br>
+                        <b>Respuesta Fallida:</b><br>
+                        Error de servidor<br>
+                        o<br>
+                        Error al agregar nota! (Falta de token)
+                    </td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>http://sergcr.ddns.net:8080/getAllNotas</td>
+                    <td>String token</td>
+                    <td>Trae todas las notas</td>
+                    <td><b>Call:</b> http://sergcr.ddns.net:8080/getAllNotas?token=3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b<br><br>
+                        <b>Respuesta Exitosa:</b>
+                        <br>
+                        [<br>
+                        {<br>
+                            "noteID": 1,<br>
+                            "userID": 1,<br>
+                            "noteText": "Esta nota fue actualizada 2",<br>
+                            "noteTitle": "el titulo tambien fue actualizado 2",<br>
+                            "noteBackgroundColor": "#888888",<br>
+                            "notePasswordEnabled": false,<br>
+                            "notePassword": "",<br>
+                            "noteCategory": "",<br>
+                            "noteSharedWithListOfUsers": [<br>
+                                {<br>
+                                    "usuarioID": 4,<br>
+                                    "nombre": "Ramon",<br>
+                                    "apellido": "Ramirez",<br>
+                                    "password": "contrasena",<br>
+                                    "email": "ramon.ramirez@email.com",<br>
+                                    "createdDate": "2023-11-01",<br>
+                                    "modifiedDate": "2023-11-01",<br>
+                                    "activeStatus": true,<br>
+                                    "listaNotas": [],<br>
+                                    "jwttoken": null<br>
+                                }<br>
+                            ],<br>
+                            "createdDate": "2023-11-04",<br>
+                            "modifiedDate": "2023-11-17",<br>
+                            "noteSharedWithStringOfUsers": ",ramon.ramirez@email.com"<br>
+                        }<br>
+                        ]<br><br>
+                        <b>Respuesta Fallida:</b><br>
+                        []<br>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>http://sergcr.ddns.net:8080/getNotasDeUsuario</td>
+                    <td>String userEmail<br> String token</td>
+                    <td>Trae una nota en específicos</td>
+                    <td><b>Call:</b> http://sergcr.ddns.net:8080/getNotasDeUsuario?userEmail=javier.jimenez@email.com&token=3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b<br><br>
+                        <b>Respuesta Exitosa:</b>
+                        <br>
+                            [<br>
+                            {<br>
+                                "noteID": 2,<br>
+                                "userID": 3,<br>
+                                "noteText": "El texto de la nota va aqui3",<br>
+                                "noteTitle": "Este seria el titulo de la nota3",<br>
+                                "noteBackgroundColor": "#000000",<br>
+                                "notePasswordEnabled": true,<br>
+                                "notePassword": "p4ssw0rd",<br>
+                                "noteCategory": "categoria de prueba",<br>
+                                "noteSharedWithListOfUsers": [],<br>
+                                "createdDate": "2023-11-04",<br>
+                                "modifiedDate": "2023-11-05",<br>
+                                "noteSharedWithStringOfUsers": ""<br>
+                            }<br>
+                            ],<br>
+                            "createdDate": "2023-11-04",<br>
+                            "modifiedDate": "2023-11-17",<br>
+                            "noteSharedWithStringOfUsers": ",ramon.ramirez@email.com"<br>
+                        }<br>
+                        ]<br><br>
+                        <b>Respuesta Fallida:</b><br>
+                        []<br>
+                </tr>
+                <tr>
+                    <td>UPDATE</td>
+                    <td>http://sergcr.ddns.net:8080/updateNota</td>
+                    <td>Integer noteID <br> String texto <br> String titulo<br> String token</td>
+                    <td>Actualiza la informacion de la nota</td>
+                    <td><b>Call:</b> http://sergcr.ddns.net:8080/updateNota?noteID=1&texto=Esta nota fue actualizada 3&titulo=el titulo tambien fue actualizado 3<br><br>
+                        <b>Respuesta Exitosa:</b>
+                        <br>
+                        "Nota actualizada con exito!"<br><br>
+                        <b>Respuesta Fallida:</b><br>
+                        Error de servidor<br>
+                        o<br>
+                        Actualizacion de Nota fallida! (Falta de token)
+                    </td>
+                </tr>
+                <tr>
+                    <td>DELETE</td>
+                    <td>http://sergcr.ddns.net:8080/deleteNota</td>
+                    <td>Integer noteID<br> String token</td>
+                    <td>Elimina la nota</td>
+                    <td><b>Call:</b> http://sergcr.ddns.net:8080/deleteNota?noteID=10&token=3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b<br><br>
+                        <b>Respuesta Exitosa:</b>
+                        <br>
+                        "Nota eliminada con exito!"<br><br>
+                        <b>Respuesta Fallida:</b><br>
+                        Error de servidor<br>
+                        o<br>
+                        Error al eliminar la nota! (Falta de token)
+                    </td>
+                </tr>
+            </table>
+            <br>
+
+
+        <h3>Tabla de Cambios No Funcionales (Progra-Web)</h3>
+        <table>
+            <th>Metodo de progra web</th>
+            <th>URL</th>
+            <th>Atributos</th>
+            <th>Descripcion</th>
+            <th>Ejemplo</th>
+            <tr>
+                <td>PUT</td>
+                <td>http://sergcr.ddns.net:8080/setPasswordEnabled</td>
+                <td>Boolean enabled (0 = False, 1= True)<br> Integer noteID <br> String password<br> String token</td>
+                <td>setea una contraseña especifica para la nota</td>
+                <td><b>Call:</b> http://sergcr.ddns.net:8080/setPasswordEnabled?enabled=0&noteID=1&password=asdfasdfadfghsdfgsdfvsdcvsdvsfghsdg<br><br>
+                    <b>Respuesta Exitosa:</b>
+                    <br>
+                    "Password removido con exito!"<br>
+                    o<br>
+                    "Password habilitado con exito!"<br><br>
+                    <b>Respuesta Fallida:</b><br>
+                    Error de servidor<br>
+                    o<br>
+                    Error al habilitar password
+                </td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>http://sergcr.ddns.net:8080/setCategoriaNota</td>
+                <td>Integer noteID <br> String categoryName<br> String token</td>
+                <td>setea una categoria especifica para la nota</td>
+                <td><b>Call:</b> http://sergcr.ddns.net:8080/setCategoriaNota?noteID=1&categoryName=miCategoria aqui&token=3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b<br><br>
+                    <b>Respuesta Exitosa:</b>
+                    <br>
+                    "Categoria actualizada con exito!"<br><br>
+                    <b>Respuesta Fallida:</b><br>
+                    Error de servidor<br>
+                    o<br>
+                    Error al actualizar la categoria
+                </td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>http://sergcr.ddns.net:8080/setColorBackground</td>
+                <td>Integer noteID <br> String hexCodigoColor<br> String token</td>
+                <td>setea el color de fondo especifico para la nota</td>
+                <td><b>Call:</b> http://sergcr.ddns.net:8080/setColorBackground?noteID=1&hexCodigoColor=BBFF44&token=3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b<br><br>
+                    <b>Respuesta Exitosa:</b>
+                    <br>
+                    "Color de background actualizado con exito!"<br><br>
+                    <b>Respuesta Fallida:</b><br>
+                    Error de servidor<br>
+                    o<br>
+                    Error al actualizar el color de background
+                </td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>http://sergcr.ddns.net:8080/setEmailsParaNotaCompartida</td>
+                <td>Integer noteID <br> String accion ("agregar" o "remover") <br> String email<br> String token</td>
+                <td>agrega o remueve emails de los usuarios a los que se les comparte la nota</td>
+                <td><b>Call:</b> http://sergcr.ddns.net:8080/setEmailsParaNotaCompartida?noteID=2&tipo=agregar&email=persona@email.com&token=3f54f747ac23d5067c1a7324de070c5f27da8d3c34bc9ce1bed0929e9c14004b<br><br>
+                    <b>Respuesta Exitosa:</b>
+                    <br>
+                    "Emails compartidos actualizados con exito!"<br><br>
+                    <b>Respuesta Fallida:</b><br>
+                    Error de servidor<br>
+                    o<br>
+                    Error al actualizar emails compartidos
+                </td>
+            </tr>
+
+            </table>
+
+            </tbody>
+        </table>
+    </body>
+
+    </html>
